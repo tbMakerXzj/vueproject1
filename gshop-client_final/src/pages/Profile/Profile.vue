@@ -109,10 +109,10 @@
           action => {
             // 请求退出
             this.$store.dispatch('logout')
-            Toast('登出完成')
+            Toast('退出完成')
           },
           action => {
-            console.log('点击了取消')
+            Toast("不退出点什么点")
           }
         );
       }

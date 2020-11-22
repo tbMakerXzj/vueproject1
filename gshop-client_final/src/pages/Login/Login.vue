@@ -2,7 +2,7 @@
   <section class="loginContainer">
     <div class="loginInner">
       <div class="login_header">
-        <h2 class="login_logo">硅谷外卖</h2>
+        <h2 class="login_logo">**外卖</h2>
         <div class="login_header_title">
           <a href="javascript:;" :class="{on: loginWay}" @click="loginWay=true">短信登录</a>
           <a href="javascript:;" :class="{on: !loginWay}" @click="loginWay=false">密码登录</a>
@@ -142,16 +142,16 @@
         } else {// 密码登陆
           const {name, pwd, captcha} = this
           if(!this.name) {
-            // 用户名必须指定
-            this.showAlert('用户名必须指定')
+            // 用户名必须输入
+            this.showAlert('用户名必须输入')
             return
           } else if(!this.pwd) {
-            // 密码必须指定
-            this.showAlert('密码必须指定')
+            // 密码必须输入
+            this.showAlert('密码必须输入')
             return
           } else if(!this.captcha) {
-            // 验证码必须指定
-            this.showAlert('验证码必须指定')
+            // 验证码必须输入
+            this.showAlert('验证码必须输入')
             return
           }
           // 发送ajax请求密码登陆
@@ -167,9 +167,12 @@
 
         // 根据结果数据处理
         if(result.code===0) {
+          // 显示新的图片验证码
+          this.getCaptcha()
           const user = result.data
           // 将user保存到vuex的state
           this.$store.dispatch('recordUser', user)
+          
           // 去个人中心界面
           this.$router.replace('/profile')
         } else {
@@ -178,6 +181,7 @@
           // 显示警告提示
           const msg = result.msg
           this.showAlert(msg)
+          this.captcha=''
         }
       },
       // 关闭警告框
